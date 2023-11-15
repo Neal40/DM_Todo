@@ -1,0 +1,52 @@
+app-todo-block {
+  display: block;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+}
+
+.create-mode {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  margin-top: 20px;
+}
+
+.label {
+  font-weight: bold;
+  color: #e50914;
+
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+button {
+  margin-top: 33px;
+  margin-right: 33px;
+  margin-bottom: 33px;
+  padding: 10px;
+  background-color: #e50914;
+  color: bisque;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button.reset {
+  background-color: #f44336;
+}
+
+button:hover {
+  background-color: #000000;
+}
+

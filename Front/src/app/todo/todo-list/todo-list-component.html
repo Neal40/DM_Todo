@@ -1,0 +1,21 @@
+<app-todo-block
+  *ngFor="let todo of todos" [todo]="todo">
+</app-todo-block>
+
+  <button class="create-button" (click)="toggleCreateMode()">Créer</button>
+
+<div class="create-mode" *ngIf="isCreateMode">
+  <form [formGroup]="todoForm" (ngSubmit)="createTodo()">
+    <label class="label" for="contenu">Contenu :</label>
+    <input formControlName="contenu" id="contenu" name="contenu">
+
+    <label class="label" for="dateCreation">Date de création :</label>
+    <input formControlName="dateCreation" id="dateCreation" name="dateCreation">
+
+    <label class="label" for="statut">Statut :</label>
+    <input formControlName="statut" id="statut" name="statut">
+
+    <button class="submit" type="submit">Enregistrer</button>
+    <button class="reset" type="reset">Reset</button>
+  </form>
+</div>

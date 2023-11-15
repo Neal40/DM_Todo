@@ -1,0 +1,26 @@
+nav {
+  display: flex;
+  width: 77%;
+  margin: 1px;
+  padding: 1%;
+  border: 1px solid black;
+  border-radius: 5px;
+  color: black;
+  background-color: #e50914;
+}
+
+nav a {
+  text-decoration: none;
+  color: bisque;
+  border-radius: 5px;
+  margin: 1px;
+  padding: 15px;
+  display: inline-block;
+  background-color: black;
+}
+
+nav a:hover {
+  color: bisque;
+  border-radius: 5px;
+  background-color: black;
+}

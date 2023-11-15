@@ -1,0 +1,21 @@
+<form>
+  <div class="todo" (click)="openTodo(todo.id)">
+    <div class="todo-content">
+      <span class="label">Contenu : </span>
+      <span class="value">{{ todo.contenu }}</span>
+    </div>
+
+    <div class="todo-info">
+      <div class="todo-date">
+        <span class="label">Date de création : </span>
+        <span class="value">{{ todo.dateCreation }}</span>
+      </div>
+
+      <div class="todo-status">
+        <span class="label">Statut : </span>
+        <span class="value">{{ todo.statut }}</span>
+      </div>
+    </div>
+  </div>
+</form>
+
