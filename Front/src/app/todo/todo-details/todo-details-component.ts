@@ -1,6 +1,6 @@
-import {Component, Input} from '@angular/core';
+import {Component} from '@angular/core';
 import {Todo} from "../../model/Todo";
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router, ActivatedRoute} from "@angular/router";
 import {TodoService} from "../../services/todo.service";
 
 @Component({
@@ -10,14 +10,17 @@ import {TodoService} from "../../services/todo.service";
 })
 export class TodoDetailsComponent {
 
-  @Input() todo!: Todo
+  todo!: Todo
   mode: string = "Display";
 
   constructor(
     private todoService: TodoService,
     private route: ActivatedRoute,
-    private router: Router
-  ) {}
+    private router: Router,
+  ) {
+    const todo_id: Number = Number(this.route.snapshot.paramMap.get("id"))
+    this.todoService.getTodoById(todo_id).subscribe((todo) => (this.todo = todo));
+  }
 
   changeMode() {
     this.mode = (this.mode === "Edit") ? "Display" : "Edit";
@@ -30,7 +33,7 @@ export class TodoDetailsComponent {
 
   deleteTodo() {
     console.log("delete");
-    if (confirm("Voulez-vous vraiment supprimer cette tâche?")) {
+    if (confirm("Voulez-vous vraiment supprimer cette tâche ?")) {
       this.todoService.delete(this.todo).subscribe(() => {
         this.router.navigate(['/todos']); // Redirection vers la liste des todos
      });

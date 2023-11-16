@@ -3,6 +3,8 @@ package DM_Todo.Todo.todo;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
+import java.util.Objects;
+
 @Entity
 public class Todo {
 
@@ -10,13 +12,9 @@ public class Todo {
     @NotNull()
     @Min(0)@Max(20)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private long id;
-    @Column(name = "contenu")
     private String contenu;
-    @Column(name = "datecreation")
     private String datecreation;
-    @Column(name = "statut")
     private String statut;
 
     public Todo() {
@@ -58,5 +56,18 @@ public class Todo {
 
     public void setStatut(String statut) {
         this.statut = statut;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Todo todo = (Todo) o;
+        return id == todo.id && Objects.equals(contenu, todo.contenu) && Objects.equals(datecreation, todo.datecreation) && Objects.equals(statut, todo.statut);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, contenu, datecreation, statut);
     }
 }

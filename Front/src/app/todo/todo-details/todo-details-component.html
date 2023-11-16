@@ -4,7 +4,6 @@
   <ng-container *ngIf="mode === 'Edit'; else displayModeTemplate">
     <form class="form" (ngSubmit)="updateTodo()">
       <div class="edit-mode">
-        <label class="label" for="id">Id :</label> <input [(ngModel)]="todo.id" id="id" name="id">
         <label class="label" for="contenu">Contenu :</label> <input [(ngModel)]="todo.contenu" id="contenu" name="contenu">
         <label class="label" for="dateCreation">Date de création :</label> <input [(ngModel)]="todo.dateCreation" id="dateCreation" name="dateCreation">
         <label class="label" for="statut">Statut :</label> <input [(ngModel)]="todo.statut" id="statut" name="statut">
@@ -16,13 +15,13 @@
 
   <ng-template #displayModeTemplate>
     <div class="display-mode">
-      <p><span class="label">Id :</span> <span class="value">{{ todo.id }}</span></p>
       <p><span class="label">Contenu :</span> <span class="value">{{ todo.contenu }}</span></p>
       <p><span class="label">Date de création :</span> <span class="value">{{ todo.dateCreation }}</span></p>
       <p><span class="label">Statut :</span> <span class="value">{{ todo.statut }}</span></p>
     </div>
   </ng-template>
 
+  <button class="delete-button" (click)="deleteTodo()">Supprimer</button>
+
 </div>
 
-<button class="delete-button" (click)="deleteTodo()">Supprimer</button>

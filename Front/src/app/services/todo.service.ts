@@ -31,28 +31,14 @@ export class TodoService {
     return this.http.put(updateUrl, todo, this.httpOptions).pipe(catchError(this.handleError<any>('updateTodo')))
   }
 
-   updateTodo(todo: Todo): Observable<any> {
-    const url = this.url + "/todos" + todo.id;
-    return this.http.put(url, todo);
-   }
-
   delete(todo: Todo): Observable<any> {
-    let deleteUrl = this.url + "/" + todo.id;
+    let deleteUrl = this.url + "/" + todo.id
     return this.http.delete(deleteUrl, this.httpOptions).pipe(catchError(this.handleError<any>('deleteTodo')));
   }
 
-  deleteTodo(todo: Todo): Observable<any> {
-    const url = this.url + "/" + todo.id;
-    return this.http.delete(url);
-  }
-
-  create(newtodo: Todo): Observable<any> {
-    return this.http.post(this.url, newtodo, this.httpOptions).pipe(catchError(this.handleError<any>('createTodo')));
-  }
-
-  createTodo(newTodo: Todo): Observable<any> {
-    const url = this.url + "/create" + newTodo;
-    return this.http.post(url, newTodo);
+  create(todo: Todo): Observable<any> {
+    let createUrl = this.url + "/" + todo.id;
+    return this.http.post(createUrl, todo, this.httpOptions).pipe(catchError(this.handleError<any>('createTodo')));
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

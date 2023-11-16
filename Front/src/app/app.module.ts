@@ -8,8 +8,7 @@ import { TodoListComponent } from './todo/todo-list/todo-list-component';
 import { TodoBlockComponent } from './todo/todo-block/todo-block-component';
 import { AppRoutingModule } from './app.routing.mdule';
 import {RouterLink, RouterOutlet} from "@angular/router";
-import {FormsModule,} from "@angular/forms";
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -22,10 +21,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    FormsModule,
     RouterOutlet,
     RouterLink,
-    ReactiveFormsModule
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

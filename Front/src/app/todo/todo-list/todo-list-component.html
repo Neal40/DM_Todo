@@ -1,21 +1,26 @@
+<ng-template #annuler>
 <app-todo-block
   *ngFor="let todo of todos" [todo]="todo">
 </app-todo-block>
+</ng-template>
 
-  <button class="create-button" (click)="toggleCreateMode()">Créer</button>
+<ng-container *ngIf="mode==='Create' then annuler else create"></ng-container>
 
-<div class="create-mode" *ngIf="isCreateMode">
-  <form [formGroup]="todoForm" (ngSubmit)="createTodo()">
-    <label class="label" for="contenu">Contenu :</label>
-    <input formControlName="contenu" id="contenu" name="contenu">
+<ng-template #create>
+    <form class="create-mode"  (ngSubmit)="createTodo()">
+        <label class="label" for="contenu">Contenu :</label>
+        <input class="contenu" id="contenu" name="contenu">
 
-    <label class="label" for="dateCreation">Date de création :</label>
-    <input formControlName="dateCreation" id="dateCreation" name="dateCreation">
+        <label class="label" for="dateCreation">Date de création :</label>
+        <input class="dateCreation" id="dateCreation" name="dateCreation">
 
-    <label class="label" for="statut">Statut :</label>
-    <input formControlName="statut" id="statut" name="statut">
+        <label class="label" for="statut">Statut :</label>
+        <input class="statut" id="statut" name="statut">
 
-    <button class="submit" type="submit">Enregistrer</button>
-    <button class="reset" type="reset">Reset</button>
-  </form>
-</div>
+        <button class="submit" type="submit" (click)="createTodo()">Enregistrer</button>
+        <button class="reset" type="reset">Reset</button>
+    </form>
+
+</ng-template>
+
+<button class="create-button" (click)="ModeCreate()">{{mode}}</button>
