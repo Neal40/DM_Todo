@@ -13,7 +13,5 @@ export class TodoBlockComponent {
   constructor(private router: Router) {}
 
   openTodo(id: Number) {
-    this.router.navigate(['/todos/'+id],
-      {state: {todo :this.todo}})
-  }
+    this.router.navigate(['/todos/'+id])}
 }

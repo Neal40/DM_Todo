@@ -1,9 +1,6 @@
 package DM_Todo.Todo.todo;
 
-import DM_Todo.Todo.exceptions.ExceptionHandlingAdvice;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import DM_Todo.Todo.exceptions.ResourceAlreadyExistsException;
-import DM_Todo.Todo.exceptions.ResourceNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,6 +14,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import DM_Todo.Todo.exceptions.ExceptionHandlingAdvice;
+import DM_Todo.Todo.exceptions.ResourceAlreadyExistsException;
+import DM_Todo.Todo.exceptions.ResourceNotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +38,7 @@ public class TodoControllerTest {
     @Autowired
     MockMvc mockMvc;
 
-    @MockBean(name = "jpa")
+    @MockBean
     TodoService todoService;
 
     private List<Todo> todos;
@@ -54,7 +54,7 @@ public class TodoControllerTest {
         when(todoService.getById(2L)).thenReturn(todos.get(1));
         when(todoService.getById(49L)).thenThrow(ResourceNotFoundException.class);
     }
-    // Réponse correcte : code d'état 200, avec la liste des tâches.
+
     @Test
     void whenGettingAll_shouldGet3_andBe200() throws Exception {
         mockMvc.perform(get("/todos")
@@ -63,7 +63,7 @@ public class TodoControllerTest {
         ).andExpect(jsonPath("$", hasSize(3))
         ).andDo(print());
     }
-    // Réponse correcte : code d'état 200, avec les détails de la tâche avec l'ID 2.
+
     @Test
     void whenGettingId2L_shouldReturnSame() throws Exception {
         mockMvc.perform(get("/todos/2")
@@ -75,7 +75,7 @@ public class TodoControllerTest {
         ).andExpect(jsonPath("$.statut", is("Tâche non accomplie"))
         ).andReturn();
     }
-    // Réponse correcte : code d'état 404, car la tâche avec l'ID 49 n'existe pas.
+
     @Test
     void whenGettingUnexistingId_should404() throws Exception {
         mockMvc.perform(get("/todos/49")
@@ -84,9 +84,6 @@ public class TodoControllerTest {
         ).andDo(print());
     }
 
-    // Enlever le CrossOrigin dans TodoController sinon erreur 403 à cause du CORS request
-    // Une fois le test réalisé, il faut le remettre
-    // Réponse correcte qaund je l'enlève : code d'état 201, avec l'en-tête « Location » indiquant l'URL de la ressource nouvellement créée.
     @Test
     void whenCreatingNew_shouldReturnLink_andShouldBeStatusCreated() throws Exception {
         Todo newTodo = new Todo(89L, "Nouvelle tâche", "2024-11-15", "Pas faite");
@@ -94,7 +91,7 @@ public class TodoControllerTest {
         when(todoService.create(any())).thenReturn(newTodo);
 
         mockMvc.perform(post("/todos")
-                .contentType(MediaType.APPLICATION_JSON_UTF8) // Set the content type
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(newTodo))
         ).andExpect(status().isCreated()
         ).andExpect(header().string("Location", "/todos/" + newTodo.getId())
@@ -104,7 +101,6 @@ public class TodoControllerTest {
         assertEquals(newTodo, todoReceived.getValue());
     }
 
-    // Réponse correcte : code d'état 409 (conflit), car il tente de créer une ressource avec un ID existant.
     @Test
     void whenCreatingWithExistingId_should409() throws Exception {
         when(todoService.create(any())).thenThrow(ResourceAlreadyExistsException.class);
@@ -115,7 +111,6 @@ public class TodoControllerTest {
         ).andDo(print());
     }
 
-    // Réponse correcte : code d'état 204 (aucun contenu), car il met à jour la ressource existante.
     @Test
     void whenUpdating_shouldReceiveTodoToUpdate_andReturnNoContent() throws Exception {
         Todo initialTodo = todos.get(1);
@@ -131,7 +126,6 @@ public class TodoControllerTest {
         assertEquals(updatedTodo, todoReceived.getValue());
     }
 
-   //  Réponse correcte : code d'état 204
     @Test
     void whenDeletingExisting_shouldCallServiceWithCorrectId_andSendNoContent() throws Exception {
         Long id = 3L;
