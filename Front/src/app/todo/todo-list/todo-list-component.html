@@ -8,6 +8,8 @@
 
 <ng-template #create>
     <form class="create-mode"  (ngSubmit)="createTodo()">
+        <label class="label" for="id">ID :</label>
+        <input class="id" id="id" name="id">
         <label class="label" for="contenu">Contenu :</label>
         <input class="contenu" id="contenu" name="contenu">
 
